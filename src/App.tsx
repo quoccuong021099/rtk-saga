@@ -1,38 +1,35 @@
-import cityApi from 'api/cityApi';
-import studentApi from 'api/studentApi';
-import React, { useEffect } from 'react';
+import Button from '@mui/material/Button';
+import { useAppDispatch } from 'app/hooks';
+import { NotFound, PrivateRoute } from 'component/Common';
+import { AdminLayout } from 'component/Layout';
+import { authAction } from 'features/auth/authSlice';
+import LoginPage from 'features/auth/pages/LoginPage';
+import React from 'react';
+import { Route, Routes } from "react-router-dom";
 import './App.css';
-import {
-  BrowserRouter,
-  Routes,
-  Route
-} from "react-router-dom";
 
 function App() {
-
-  useEffect(() => {
-    cityApi.getAll().then(res => console.log(res.data.map(x => x.name)));
-    studentApi.getAll({
-      _page: 1,
-      _limit: 10,
-      _sort: 'name',
-      _order: 'asc',
-    }).then(res => console.log(res.data));
-  }, [])
-
+  const dispatch = useAppDispatch();
+  const handleLogout = () => {
+    dispatch(authAction.logout())
+  }
   return (
-    <div >
+    <>
+      <Button color="secondary" onClick={handleLogout}>Logout</Button>
       <Routes>
-        <Route path="/" element={<>a</>}>
-          {/* <Route index element={<Home />} /> */}
-          {/* <Route path="teams" element={<Teams />}>
-            <Route path=":teamId" element={<Team />} />
-            <Route path="new" element={<NewTeamForm />} />
-            <Route index element={<LeagueStandings />} />
-          </Route> */}
-        </Route>
+        <Route path="/" element={<>a</>} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/admin"
+          element={
+            <PrivateRoute>
+              <AdminLayout />
+            </PrivateRoute>
+          }
+        />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-    </div>
+    </>
   );
 }
 

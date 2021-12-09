@@ -1,3 +1,4 @@
+import CssBaseline from '@mui/material/CssBaseline';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -8,12 +9,16 @@ import App from './App';
 import { store } from './app/store';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+const theme = createTheme();
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+        </ThemeProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
