@@ -1,3 +1,4 @@
+import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -19,7 +20,11 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: 'none',
 
         '&.active > div': {
-            backgroundColor: theme.palette.action.selected,
+            backgroundColor: '#3f51b5',
+            color: "#fff",
+        },
+        '&.active svg': {
+            color: "#fff",
         },
     },
 }));
@@ -29,7 +34,8 @@ export function Sidebar() {
 
     return (
         <div className={classes.root}>
-            <List component="nav" aria-label="main mailbox folders">
+            {/* <List component="nav" aria-label="main mailbox folders"> */}
+            <Box mt={4}>
                 <NavLink to="/admin/dashboard" className={classes.link}>
                     <ListItem button>
                         <ListItemIcon>
@@ -47,7 +53,8 @@ export function Sidebar() {
                         <ListItemText primary="Students" />
                     </ListItem>
                 </NavLink>
-            </List>
+            </Box>
+            {/* </List> */}
         </div>
     );
 }

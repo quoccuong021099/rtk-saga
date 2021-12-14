@@ -1,5 +1,5 @@
-import { Box, Button, makeStyles, Paper, Typography } from '@material-ui/core';
-import { useAppDispatch } from 'app/hooks';
+import { Box, Button, CircularProgress, makeStyles, Paper, Typography } from '@material-ui/core';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import * as React from 'react';
 import { authAction } from '../authSlice';
 
@@ -9,46 +9,42 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: 'row nowrap',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '20px',
     minHeight: '100vh',
-    backgroundColor: '#081421'
   },
-  paper: {
-    padding: '16px',
-    display: 'flex',
-    flexFlow: 'row nowrap',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#001830 !important',
-    color: '#8a8a9a'
+
+  box: {
+    padding: theme.spacing(3),
   },
-  title: {
-    color: '#fff'
-  }
 }));
 
-
 export default function LoginPage() {
-  const classes = useStyles()
-  const dispatch = useAppDispatch()
+  const classes = useStyles();
+  const dispatch = useAppDispatch();
+  const isLogging = useAppSelector((state) => state.auth.logging);
 
-  const handleLogin = () => {
-    dispatch(authAction.login({
-      username: 'Tim',
-      password: '1234'
-    }))
-  }
+  const handleLoginClick = () => {
+    // TODO: Get username + pwd from login form
+    dispatch(
+      authAction.login({
+        username: '',
+        password: '',
+      })
+    );
+  };
+
   return (
     <div className={classes.root}>
-      <Paper elevation={24} className={classes.paper}>
-        <Typography variant='h5' component='h1' className={classes.title}>Student management</Typography>
-        <Box mt={4} >
-          <Button variant="contained" color="secondary" onClick={handleLogin}>
-            Login
+      <Paper elevation={1} className={classes.box}>
+        <Typography variant="h5" component="h1">
+          Student Management
+        </Typography>
+
+        <Box mt={4}>
+          <Button fullWidth variant="contained" color="primary" onClick={handleLoginClick}>
+            {isLogging && <CircularProgress size={20} color="secondary" />} &nbsp; Fake Login
           </Button>
         </Box>
       </Paper>
-    </div >
+    </div>
   );
 }

@@ -5,12 +5,14 @@ import rootSaga from './rootSaga';
 import authReducer from 'features/auth/authSlice';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { history } from 'utils';
+import dashboardReducer from 'features/dashboard/dashboardSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 const rootReducer = combineReducers({
   router: connectRouter(history),
   counter: counterReducer,
   auth: authReducer,
+  dashboard: dashboardReducer,
 });
 
 export const store = configureStore({

@@ -14,7 +14,6 @@ function* handleLogin(payload: LoginPayload) {
   }
 }
 function* handleLogout() {
-  yield delay(1000);
   localStorage.removeItem('access_token');
   // redirect to login page
   yield put(push('/login'));
