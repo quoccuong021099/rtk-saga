@@ -1,5 +1,4 @@
-import { Box, Button, Paper, Typography } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+import { Box, Button, makeStyles, Paper, Typography } from '@material-ui/core';
 import { useAppDispatch } from 'app/hooks';
 import * as React from 'react';
 import { authAction } from '../authSlice';
